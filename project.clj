@@ -1,4 +1,4 @@
-(defproject mta "0.1.0-SNAPSHOT"
+(defproject arrive "0.1.0-SNAPSHOT"
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
@@ -7,9 +7,15 @@
                  [com.google.transit/gtfs-realtime-bindings "0.0.4"]
                  [clj-http "3.7.0"]
                  [cheshire "5.8.0"]
-                 [com.google.protobuf/protobuf-java "3.5.1"]]
-  :source-paths      ["src/clojure"]
+                 [com.google.protobuf/protobuf-java "3.5.1"]
+                 [ring "1.8.1"]
+                 [ring/ring-json "0.5.0"]
+                 [com.taoensso/timbre "4.10.0"]
+                 [http-kit "2.3.0"]
+                 [metosin/reitit "0.4.2"]
+                 [org.clojure/tools.namespace "0.2.11"]]
+  :source-paths      ["src/clojure" "src/dev"]
   :java-source-paths ["src/java"]
-  :main ^:skip-aot mta.core
+  :main ^:skip-aot app.server
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

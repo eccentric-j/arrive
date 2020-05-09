@@ -13,15 +13,18 @@
                       :longitude #(BigDecimal. %)})
 
 (defn get-stations-csv!
-  "Requests the list of stations live from the mta.
-   Returns a lazy seq of CSV rows."
+  "
+  Requests the list of stations live from the mta.
+  Returns a lazy seq of CSV rows.
+  "
   [url]
   (let [csv-str (->> (client/get url) :body)]
     (str/split csv-str #"\r\n")))
 
 (defn parse-station-value
-  "Looks up a parser for the given station key and applies it to the given
-   value.
+  "
+  Looks up a parser for the given station key and applies it to the given
+  value.
   Takes a keyword key and any value type to format.
   Returns a parsed value."
   [key value]
@@ -29,8 +32,10 @@
     (parse-fn value)))
 
 (defn csv->station
-  "Converts a list of csv row string and parses specified columns into a map
-   with named keys."
+  "
+  Converts a list of csv row string and parses specified columns into a map
+  with named keys.
+  "
   [station-csv-row]
   (let [values (str/split station-csv-row #",")]
     (into {} (map (fn
@@ -53,5 +58,4 @@
        (map csv->station)
        (reduce index-by-id {})))
 
-(comment
-  (fetch))
+(comment)

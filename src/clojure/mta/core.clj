@@ -4,10 +4,6 @@
    [mta.stations :as stations]
    [mta.trains :as trains]))
 
-(defn get-config
-  [filename]
-  (read-string (slurp filename)))
-
 (defn assoc-station
   [stations train]
   (let [train-station (:station-id train)
@@ -17,13 +13,16 @@
     (merge train {:station station
                   :direction direction})))
 
-(defn -main
-  []
-  (let [config (get-config "dev.secret.edn")
-        trains (trains/fetch config)
+(defn train-arrivals
+  [config]
+  (let [trains (trains/fetch config)
         stations (stations/fetch config)]
     (->> trains
          (map (partial assoc-station stations)))))
+
+(defn -main
+  []
+  (->> (train-arrivals)))
 
 (comment
   (-main))
