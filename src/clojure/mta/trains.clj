@@ -1,6 +1,7 @@
 (ns mta.trains
   (:require
-   [clj-http.client :as client])
+   [clj-http.client :as client]
+   [clojure.pprint :refer [pprint]])
   (:import
    (com.google.transit.realtime GtfsRealtime$FeedMessage NyctSubway)
    (com.google.protobuf ExtensionRegistry)))
@@ -19,7 +20,7 @@
 
 (defn get-url
   [config]
-  (format "%s?key=%s"
+  (format "%s?key=%s&feed_id=1"
     (:url config)
     (:token config)))
 
@@ -32,12 +33,14 @@
   [trip-update]
   (let [trip (.getTrip trip-update)
         train (.getRouteId trip)
+        id (.getTripId trip)
         stops (.getStopTimeUpdateList trip-update)]
     (map
      #(hash-map
-       :train train
-       :station-id (.getStopId %)
-       :arrives (calc-arrival (.getTime (.getArrival %))))
+       :train/id id
+       :train/name train
+       :train/station-id (.getStopId %)
+       :train/arrives (calc-arrival (.getTime (.getArrival %))))
      stops)))
 
 (defn fetch

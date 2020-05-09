@@ -6,17 +6,17 @@
 
 (defn assoc-station
   [stations train]
-  (let [train-station (:station-id train)
+  (let [train-station (:train/station-id train)
         id (s/join "" (butlast train-station))
         direction (str (last train-station))
         station (get stations id {})]
-    (merge train {:station station
-                  :direction direction})))
+    (merge train {:train/station station
+                  :train/direction direction})))
 
 (defn train-arrivals
   [config]
   (let [trains (trains/fetch config)
-        stations (stations/fetch config)]
+        stations (stations/load config)]
     (->> trains
          (map (partial assoc-station stations)))))
 

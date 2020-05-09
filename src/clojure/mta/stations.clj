@@ -1,16 +1,18 @@
 (ns mta.stations
-  (:require [clj-http.client :as client]
-            [clojure.string :as str]
-            [clojure.pprint :refer [pprint]]))
+  (:refer-clojure :exclude [load])
+  (:require
+   [clj-http.client :as client]
+   [clojure.string :as str]
+   [clojure.pprint :refer [pprint]]))
 
-(def station-keys {:id 2
-                   :line 4
-                   :name 5
-                   :latitude 9
-                   :longitude 10})
+(def station-keys {:station/id 2
+                   :station/line 4
+                   :station/name 5
+                   :station/latitude 9
+                   :station/longitude 10})
 
-(def station-parsers {:latitude #(BigDecimal. %)
-                      :longitude #(BigDecimal. %)})
+(def station-parsers {:station/latitude #(BigDecimal. %)
+                      :station/longitude #(BigDecimal. %)})
 
 (defn get-stations-csv!
   "
@@ -48,14 +50,23 @@
   Update the map with an id value to station for fast lookups
   "
   [m station]
-  (assoc m (str (:id station)) station))
+  (assoc m (str (:station/id station)) station))
 
 (defn fetch
-  "Returns a vector of station hash maps."
+  "Returns a hash map of stations mapping the id to the station."
   [config]
   (->> (get-stations-csv! (:stations-url config))
        (drop 1)
        (map csv->station)
        (reduce index-by-id {})))
 
-(comment)
+(defn load
+  "
+  Returns cached hash map of stations returned by fetch
+  "
+  [config]
+  (read-string (slurp (:stations-cache-file config))))
+
+(comment
+  (require '[app.config :refer [config]])
+  (fetch config))
