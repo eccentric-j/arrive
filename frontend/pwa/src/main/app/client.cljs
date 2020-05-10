@@ -35,7 +35,7 @@
 (set! (.-onload js/window)
       (fn []
         (when-let [service-worker (.-serviceWorker js/navigator)]
-          (.register service-worker "./sw.js" ))))
+          (.register service-worker "./worker.js" ))))
 
 (defn ^:export init
   ""

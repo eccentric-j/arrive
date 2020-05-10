@@ -9,4 +9,10 @@
                    :modules    {:main {:init-fn app.client/init
                                        :entries [app.client]}}
                    :devtools   {:after-load app.client/refresh
-                                :preloads   []}}}}
+                                :preloads   []}}
+            :worker {:target :browser
+                     :output-dir "resources/public"
+                     :asset-path "/"
+                     :modules {:worker {:init-fn app.worker/init
+                                        :entries [app.worker]}}
+                     :compiler-options {:optimizations :advanced}}}}
