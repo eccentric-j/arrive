@@ -1,0 +1,22 @@
+{
+  "short_name": "Arrive",
+  "name": "Arrive: Where's my train?",
+  "description": "NYC Subway Arrival Times",
+  "icons": [
+    {
+      "src": "/images/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/images/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "background_color": "#336699",
+  "display": "fullscreen",
+  "scope": "/",
+  "theme_color": "#3367D6"
+}

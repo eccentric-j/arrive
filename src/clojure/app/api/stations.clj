@@ -6,7 +6,7 @@
 (defn get-stations
   [req]
   {:status 200
-   :body (stations/fetch config)})
+   :body (stations/load config)})
 
 (def api
   {:get {:parameters {}

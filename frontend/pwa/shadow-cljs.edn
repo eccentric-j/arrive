@@ -1,0 +1,12 @@
+{:deps     {:aliases [:dev]}
+ :ssl      {:keystore "keystore.jks"
+            :password "shadow"}
+ :dev-http {8686 {:root "classpath:public"
+                  :proxy-url "http://localhost:8585"}}
+ :builds   {:main {:target     :browser
+                   :output-dir "resources/public/js/main"
+                   :asset-path "/js/main"
+                   :modules    {:main {:init-fn app.client/init
+                                       :entries [app.client]}}
+                   :devtools   {:after-load app.client/refresh
+                                :preloads   []}}}}

@@ -13,3 +13,4 @@ pom.xml.asc
 .cpcache
 node_modules
 resources/public/js/main
+.shadow-cljs

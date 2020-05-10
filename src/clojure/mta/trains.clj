@@ -20,7 +20,7 @@
 
 (defn get-url
   [config]
-  (format "%s?key=%s&feed_id=1"
+  (format "%s?key=%s"
     (:url config)
     (:token config)))
 
@@ -34,13 +34,15 @@
   (let [trip (.getTrip trip-update)
         train (.getRouteId trip)
         id (.getTripId trip)
-        stops (.getStopTimeUpdateList trip-update)]
+        stops (.getStopTimeUpdateList trip-update)
+        ny-trip (.getExtension trip NyctSubway/nyctTripDescriptor)]
     (map
      #(hash-map
        :train/id id
        :train/name train
        :train/station-id (.getStopId %)
-       :train/arrives (calc-arrival (.getTime (.getArrival %))))
+       :train/arrives (calc-arrival (.getTime (.getArrival %)))
+       :train/is-assigned (.getIsAssigned ny-trip))
      stops)))
 
 (defn fetch
@@ -48,10 +50,12 @@
   Fetches trains and stations
   "
   [config]
-  (->> (client/get (get-url config) {:as :byte-array})
-       (:body)
-       (bytestream->feed)
-       (.getEntityList)
-       (filter #(.hasTripUpdate %))
-       (map #(.getTripUpdate %))
-       (mapcat parse-train)))
+  (let [url (get-url config)]
+    (->> (client/get url {:as :byte-array})
+         (:body)
+         (bytestream->feed)
+         (.getEntityList)
+         (filter #(.hasTripUpdate %))
+         (map #(.getTripUpdate %))
+         (mapcat parse-train)
+         (filter :train/is-assigned))))
