@@ -1,3 +1,111 @@
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: local('Noto Sans Japanese'), url('/fonts/noto-sans/noto-black.otf');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: local('Noto Sans Japanese'), url('/fonts/noto-sans/noto-bold.otf');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: local('Noto Sans Japanese'), url('/fonts/noto-sans/noto-light.otf');
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local('Noto Sans Japanese'), url('/fonts/noto-sans/noto-regular.otf');
+}
+
 body {
+  background: #99c4b3;
+  font-family: 'Noto Sans';
+  font-weight: 400;
+  color: #fff;
+}
+
+.t-center {
+  text-align: center;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  padding: 1rem 2rem;
+  background: none;
+  border-radius: 0.1875rem;
+  border: 1px solid #fff;
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.app {
+  max-width: 600px;
+  margin: auto;
+}
+
+.stops {
+  width: 100%;
+}
+.trains {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+}
+
+.train__name {
+  display: block;
+  line-height: 30px;
+  padding: 10px;
+  border-radius: 50%;
+  border: none;
   background: #fff;
+  width: 42px;
+  height: 42px;
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  transition: all 250ms ease-in-out;
+}
+.train--is_active .train__name {
+  color: #fff;
+  background: #2e4044;
+}
+
+.stop__arrives {
+  width: 100px;
+}
+
+.stations__list {
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+  list-style-position: inside;
+}
+.stations__train {
+  font-size: 2rem;
+}
+.station {
+  margin-bottom: 1rem;
+}
+
+.station__name {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.25rem;
+  white-space: nowrap;
 }
